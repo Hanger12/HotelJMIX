@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://apartmentBrowse.caption"
+        focusComponent="apartmentsTable">
+    <data readOnly="true">
+        <collection id="apartmentsDc"
+                    class="com.company.hotel1.entity.Apartment">
+            <fetchPlan extends="_base"/>
+            <loader id="apartmentsDl">
+                <query>
+                    <![CDATA[select e from Apartment e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="apartmentsTable" spacing="true">
+        <filter id="filter"
+                dataLoader="apartmentsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="apartmentsTable"
+                    width="100%"
+                    dataContainer="apartmentsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="number"/>
+                <column id="signOfBooking"/>
+                <column id="signOfEmployment"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="apartmentsTable.create"/>
+                <button id="editBtn" action="apartmentsTable.edit"/>
+                <button id="removeBtn" action="apartmentsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
