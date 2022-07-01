@@ -2,7 +2,6 @@ package com.company.hotel1.entity;
 
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.Secret;
-import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.SystemLevel;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
@@ -46,13 +45,8 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "LAST_NAME")
     protected String lastName;
 
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "phone", column = @Column(name = "CONTACTS_PHONE")),
-            @AttributeOverride(name = "mail", column = @Column(name = "CONTACTS_MAIL"))
-    })
-    private Contacts contacts;
+    @Column(name = "EMAIL")
+    private String email;
 
     @Column(name = "MIDDLENAME")
     private String middlename;
@@ -69,6 +63,14 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Integer getListOfRegistrationCards() {
         return listOfRegistrationCards;
     }
@@ -83,14 +85,6 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     public void setMiddlename(String middlename) {
         this.middlename = middlename;
-    }
-
-    public Contacts getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(Contacts contacts) {
-        this.contacts = contacts;
     }
 
     public UUID getId() {

@@ -7,6 +7,7 @@
         <item screen="Apartment.browse" caption="msg://com.company.hotel1.screen.apartment/apartmentBrowse.menu"/>
         <item screen="RegistrationCards.browse"
               caption="msg://com.company.hotel1.screen.registrationcards/registrationCardsBrowse.menu"/>
+        <item screen="Client.browse" caption="msg://com.company.hotel1.screen.client/clientBrowse.menu"/>
     </menu>
 
 </menu-config>
