@@ -2,6 +2,7 @@ package com.company.hotel1.entity;
 
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.Secret;
+import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.SystemLevel;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
@@ -11,7 +12,6 @@ import io.jmix.security.authentication.JmixUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -46,9 +46,19 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "LAST_NAME")
     protected String lastName;
 
-    @Email
-    @Column(name = "EMAIL")
-    protected String email;
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "phone", column = @Column(name = "CONTACTS_PHONE")),
+            @AttributeOverride(name = "mail", column = @Column(name = "CONTACTS_MAIL"))
+    })
+    private Contacts contacts;
+
+    @Column(name = "MIDDLENAME")
+    private String middlename;
+
+    @Column(name = "LIST_OF_REGISTRATION_CARDS")
+    private Integer listOfRegistrationCards;
 
     @Column(name = "ACTIVE")
     protected Boolean active = true;
@@ -58,6 +68,30 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    public Integer getListOfRegistrationCards() {
+        return listOfRegistrationCards;
+    }
+
+    public void setListOfRegistrationCards(Integer listOfRegistrationCards) {
+        this.listOfRegistrationCards = listOfRegistrationCards;
+    }
+
+    public String getMiddlename() {
+        return middlename;
+    }
+
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
+    }
+
+    public Contacts getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
+    }
 
     public UUID getId() {
         return id;
@@ -98,14 +132,6 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFirstName() {
