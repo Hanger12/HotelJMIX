@@ -38,15 +38,25 @@
                         <custom bean="ApartmentNotBooking"/>
                     </validators>
                 </entityPicker>
-                <dateField id="arrivalDateField" property="arrivalDate"/>
-                <dateField id="departureDateField" property="departureDate"/>
+                <dateField id="arrivalDateField" property="arrivalDate">
+                    <validators>
+                        <futureOrPresent/>
+                    </validators>
+                </dateField>
+                <dateField id="departureDateField" property="departureDate">
+                    <validators>
+                        <futureOrPresent/>
+                    </validators>
+                </dateField>
                 <checkBox id="paymentIndicationField" property="paymentIndication"/>
                 <checkBox id="indicationOfPrepaymentField" property="indicationOfPrepayment"/>
                 <dateField id="paymentDateField" property="paymentDate"/>
                 <dateField id="prepaymentDateField" property="prepaymentDate"/>
                 <comboBox id="resultsOfPCRTestForCOVID19Field"
                           dataContainer="registrationCardsDc"
-                          property="resultsOfPCRTestForCOVID19"/>
+                          property="resultsOfPCRTestForCOVID19">
+
+                </comboBox>
                 <entityPicker id="clientField" property="client">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>
