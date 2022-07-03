@@ -1,6 +1,8 @@
 package com.company.hotel1.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.*;
@@ -11,7 +13,6 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "REGISTRATION_CARDS", indexes = {
-        @Index(name = "IDX_REGISTRATIONCARDS", columnList = "APARTMENT_ID"),
         @Index(name = "IDX_REGISTRATIONCARDS", columnList = "CLIENT_ID")
 })
 @Entity
@@ -21,9 +22,10 @@ public class RegistrationCards {
     @Id
     private UUID id;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @InstanceName
     @JoinColumn(name = "APARTMENT_ID", nullable = false)
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Apartment apartment;
 
     @NotNull
@@ -49,9 +51,16 @@ public class RegistrationCards {
     @Column(name = "PREPAYMENT_DATE")
     private LocalDate prepaymentDate;
 
-    @NotNull
     @Column(name = "RESULTS_OF_PCR_TEST_FOR_COVID1", nullable = false)
-    private String resultsOfPCRTestForCOVID19;
+    private @NotNull String resultsOfPCRTestForCOVID19;
+
+    public void setResultsOfPCRTestForCOVID19(String resultsOfPCRTestForCOVID19) {
+        this.resultsOfPCRTestForCOVID19 = resultsOfPCRTestForCOVID19;
+    }
+
+    public String getResultsOfPCRTestForCOVID19() {
+        return resultsOfPCRTestForCOVID19;
+    }
 
     public void setClient(Client client) {
         this.client = client;
@@ -59,14 +68,6 @@ public class RegistrationCards {
 
     public Client getClient() {
         return client;
-    }
-
-    public String getResultsOfPCRTestForCOVID19() {
-        return resultsOfPCRTestForCOVID19;
-    }
-
-    public void setResultsOfPCRTestForCOVID19(String resultsOfPCRTestForCOVID19) {
-        this.resultsOfPCRTestForCOVID19 = resultsOfPCRTestForCOVID19;
     }
 
     public LocalDate getPrepaymentDate() {
@@ -131,5 +132,10 @@ public class RegistrationCards {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @DependsOnProperties({"apartment", "client", "paymentDate"})
+    public String getCount() {
+        return String.format("%s %s %s", apartment, client, paymentDate);
     }
 }

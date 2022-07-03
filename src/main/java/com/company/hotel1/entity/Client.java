@@ -2,11 +2,13 @@ package com.company.hotel1.entity;
 
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
@@ -18,8 +20,10 @@ public class Client {
     @Id
     private UUID id;
 
-    @Column(name = "LIST_OF_REGISTRATION_CARDS")
-    private Integer listOfRegistrationCards;
+    @OrderBy("client")
+    @Composition
+    @OneToMany(mappedBy = "client")
+    private List<RegistrationCards> listOfRegistrationCards;
 
     @Column(name = "SURNAME", nullable = false)
     @NotNull
@@ -41,12 +45,8 @@ public class Client {
     })
     private Contacts contacts;
 
-    public Integer getListOfRegistrationCards() {
+    public List<RegistrationCards> getListOfRegistrationCards() {
         return listOfRegistrationCards;
-    }
-
-    public void setListOfRegistrationCards(Integer listOfRegistrationCards) {
-        this.listOfRegistrationCards = listOfRegistrationCards;
     }
 
     public Contacts getContacts() {

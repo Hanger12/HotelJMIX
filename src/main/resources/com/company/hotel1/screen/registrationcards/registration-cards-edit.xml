@@ -6,7 +6,7 @@
         <instance id="registrationCardsDc"
                   class="com.company.hotel1.entity.RegistrationCards">
             <fetchPlan extends="_base">
-                <property name="apartment" fetchPlan="_base"/>
+                <property name="client" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
         </instance>
@@ -34,12 +34,9 @@
                         <action id="entityLookup" type="entity_lookup"/>
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
-                </entityPicker>
-                <entityPicker id="clientField" property="client">
-                    <actions>
-                        <action id="entityLookup" type="entity_lookup"/>
-                        <action id="entityClear" type="entity_clear"/>
-                    </actions>
+                    <validators>
+                        <custom bean="ApartmentNotBooking"/>
+                    </validators>
                 </entityPicker>
                 <dateField id="arrivalDateField" property="arrivalDate"/>
                 <dateField id="departureDateField" property="departureDate"/>
@@ -47,7 +44,15 @@
                 <checkBox id="indicationOfPrepaymentField" property="indicationOfPrepayment"/>
                 <dateField id="paymentDateField" property="paymentDate"/>
                 <dateField id="prepaymentDateField" property="prepaymentDate"/>
-                <textField id="resultsOfPCRTestForCOVID19Field" property="resultsOfPCRTestForCOVID19"/>
+                <comboBox id="resultsOfPCRTestForCOVID19Field"
+                          dataContainer="registrationCardsDc"
+                          property="resultsOfPCRTestForCOVID19"/>
+                <entityPicker id="clientField" property="client">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

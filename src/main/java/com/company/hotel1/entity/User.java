@@ -48,12 +48,6 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "MIDDLENAME")
-    private String middlename;
-
-    @Column(name = "LIST_OF_REGISTRATION_CARDS")
-    private Integer listOfRegistrationCards;
-
     @Column(name = "ACTIVE")
     protected Boolean active = true;
 
@@ -69,22 +63,6 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Integer getListOfRegistrationCards() {
-        return listOfRegistrationCards;
-    }
-
-    public void setListOfRegistrationCards(Integer listOfRegistrationCards) {
-        this.listOfRegistrationCards = listOfRegistrationCards;
-    }
-
-    public String getMiddlename() {
-        return middlename;
-    }
-
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
     }
 
     public UUID getId() {

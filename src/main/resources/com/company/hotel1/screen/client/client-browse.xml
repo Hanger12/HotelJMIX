@@ -8,6 +8,7 @@
                     class="com.company.hotel1.entity.Client">
             <fetchPlan extends="_base">
                 <property name="contacts" fetchPlan="_base"/>
+                <property name="listOfRegistrationCards" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="clientsDl">
                 <query>
@@ -46,12 +47,12 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="listOfRegistrationCards"/>
                 <column id="surname"/>
                 <column id="name"/>
                 <column id="middlename"/>
                 <column id="contacts.phone"/>
                 <column id="contacts.mail"/>
+                <column id="listOfRegistrationCards"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
