@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 @Component("ApartmentNotBooking")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ValidationApartment implements Validator<Apartment> {
+
     @Override
     public void accept(@NotNull Apartment value) throws ValidationException {
-        if(value.getSignOfBooking()||value.getSignOfEmployment()){
+        if ((value.getSignOfBooking() || value.getSignOfEmployment()) ) {
             throw new ValidationException("Данные апартаменты уже забронированы ли заняты");
         }
     }

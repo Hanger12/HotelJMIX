@@ -12,6 +12,8 @@ import io.jmix.ui.screen.Subscribe;
 import io.jmix.ui.screen.UiController;
 import io.jmix.ui.screen.UiControllerUtils;
 import io.jmix.ui.screen.UiDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("MainScreen")
@@ -28,8 +30,6 @@ public class MainScreen extends Screen implements Window.HasWorkArea {
     private Drawer drawer;
     @Autowired
     private Button collapseDrawerButton;
-
-
     @Override
     public AppWorkArea getWorkArea() {
         return workArea;
@@ -52,4 +52,5 @@ public class MainScreen extends Screen implements Window.HasWorkArea {
 
         screenTools.handleRedirect();
     }
+
 }

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @JmixEntity
@@ -22,9 +23,12 @@ public class RegistrationCards {
     @Id
     private UUID id;
 
+    @Column(name = "CREATION_DATE")
+    private LocalTime creationDate;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @InstanceName
-    @JoinColumn(name = "APARTMENT_ID", nullable = false)
+    @JoinColumn(name = "APARTMENT_ID", nullable = false, unique = true)
     @NotNull
     private Apartment apartment;
 
@@ -53,6 +57,14 @@ public class RegistrationCards {
 
     @Column(name = "RESULTS_OF_PCR_TEST_FOR_COVID1", nullable = false)
     private @NotNull String resultsOfPCRTestForCOVID19;
+
+    public LocalTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalTime creationDate) {
+        this.creationDate = creationDate;
+    }
 
     public void setResultsOfPCRTestForCOVID19(String resultsOfPCRTestForCOVID19) {
         this.resultsOfPCRTestForCOVID19 = resultsOfPCRTestForCOVID19;
@@ -138,4 +150,6 @@ public class RegistrationCards {
     public String getCount() {
         return String.format("%s %s %s", apartment, client, paymentDate);
     }
+
+
 }

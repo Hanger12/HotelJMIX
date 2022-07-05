@@ -1,7 +1,7 @@
 package com.company.hotel1.screen.registrationcards;
 
 import com.company.hotel1.app.BookingService;
-import com.company.hotel1.app.DeletePCRTestTrue;
+import com.company.hotel1.app.ServiceRegistrationCards;
 import com.company.hotel1.entity.Apartment;
 import io.jmix.core.DataManager;
 import io.jmix.core.entity.KeyValueEntity;
@@ -9,6 +9,8 @@ import io.jmix.ui.screen.*;
 import com.company.hotel1.entity.RegistrationCards;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalTime;
 
 
 @UiController("RegistrationCards.browse")
@@ -19,19 +21,18 @@ public class RegistrationCardsBrowse extends StandardLookup<RegistrationCards> {
     @Autowired
     private DataManager dataManager;
     @Autowired
-    private DeletePCRTestTrue deletePCRTestTrue;
+    private ServiceRegistrationCards deletePCRTestTrue;
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
-        if(deletePCRTestTrue.loadByCondition()!=null)
+        for (RegistrationCards r:deletePCRTestTrue.loadByCondition())
         {
-            for (RegistrationCards r:deletePCRTestTrue.loadByCondition())
-            {
-               r.getApartment().setSignOfBooking(false);
-               r.getApartment().setSignOfEmployment(false);
-               dataManager.save(r.getApartment());
-               dataManager.remove(r);
-            }
+            r.getApartment().setSignOfBooking(false);
+            r.getApartment().setSignOfEmployment(false);
+            dataManager.save(r.getApartment());
+            dataManager.remove(r);
         }
-
     }
+
+
+
 }

@@ -18,6 +18,10 @@
         </collection>
     </data>
     <facets>
+        <timer id="timer"
+               autostart="false"
+               delay="5000"
+               repeating="true"/>
         <dataLoadCoordinator auto="true"/>
         <screenSettings id="settingsFacet" auto="true"/>
     </facets>

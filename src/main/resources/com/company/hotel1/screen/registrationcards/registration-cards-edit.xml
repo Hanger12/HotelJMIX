@@ -34,9 +34,9 @@
                         <action id="entityLookup" type="entity_lookup"/>
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
-                    <validators>
+                    <!--<validators>
                         <custom bean="ApartmentNotBooking"/>
-                    </validators>
+                    </validators>-->
                 </entityPicker>
                 <dateField id="arrivalDateField" property="arrivalDate">
                     <validators>
@@ -55,7 +55,6 @@
                 <comboBox id="resultsOfPCRTestForCOVID19Field"
                           dataContainer="registrationCardsDc"
                           property="resultsOfPCRTestForCOVID19">
-
                 </comboBox>
                 <entityPicker id="clientField" property="client">
                     <actions>
@@ -63,6 +62,7 @@
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
                 </entityPicker>
+                <timeField id="creationDateField" property="creationDate"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
