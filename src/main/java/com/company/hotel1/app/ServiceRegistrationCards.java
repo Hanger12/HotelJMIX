@@ -8,8 +8,12 @@ import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.core.security.Authenticated;
 import io.jmix.core.security.CurrentAuthentication;
 import io.jmix.core.security.SystemAuthenticator;
+import io.jmix.ui.Dialogs;
+import io.jmix.ui.action.Action;
+import io.jmix.ui.action.DialogAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,6 +28,8 @@ import java.util.Objects;
 public class ServiceRegistrationCards {
     private static final Logger log = LoggerFactory.getLogger(ServiceRegistrationCards.class);
     @Autowired
+    private ObjectProvider<Dialogs> dialogsProvider;
+    @Autowired
     private DataManager dataManager;
     @Autowired
     private CurrentAuthentication currentAuthentication;
@@ -33,6 +39,7 @@ public class ServiceRegistrationCards {
     }
     @Autowired
     private SystemAuthenticator systemAuthenticator;
+
     public List<RegistrationCards> loadByCondition() {
         return dataManager.load(RegistrationCards.class)
                 .condition(PropertyCondition.contains("resultsOfPCRTestForCOVID19", "Положительный"))
@@ -43,10 +50,19 @@ public class ServiceRegistrationCards {
         return dataManager.load(RegistrationCards.class).query("select r from RegistrationCards r where r.indicationOfPrepayment=false")
                 .list();
     }
-    public RegistrationCards findRegistrationCards(Apartment apartment)
+    public RegistrationCards findRegistratioCards(Integer number)
     {
-        return dataManager.load(RegistrationCards.class).query("select r from RegistrationCards r where r.apartment.number="+apartment.getNumber()).one();
+        RegistrationCards registrationCards = new RegistrationCards();
+        try {
+            registrationCards=dataManager.load(RegistrationCards.class).query("select r from RegistrationCards r where r.apartment.number="+number).one();
+        }
+        catch (IllegalStateException exception)
+        {
+            log.info("ne robit");
+        }
+        return registrationCards;
     }
+
     private final MyInterface myInterface;
     @Authenticated
     @ManagedOperation
@@ -68,6 +84,7 @@ public class ServiceRegistrationCards {
                 {
                     r.getApartment().setSignOfBooking(false);
                     r.getApartment().setSignOfEmployment(false);
+                    dataManager.save(r.getApartment());
                     dataManager.remove(r);
                 }
 

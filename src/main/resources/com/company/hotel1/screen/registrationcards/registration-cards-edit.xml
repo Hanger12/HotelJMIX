@@ -50,8 +50,16 @@
                 </dateField>
                 <checkBox id="paymentIndicationField" property="paymentIndication"/>
                 <checkBox id="indicationOfPrepaymentField" property="indicationOfPrepayment"/>
-                <dateField id="paymentDateField" property="paymentDate"/>
-                <dateField id="prepaymentDateField" property="prepaymentDate"/>
+                <dateField id="paymentDateField" property="paymentDate">
+                    <validators>
+                        <futureOrPresent/>
+                    </validators>
+                </dateField>
+                <dateField id="prepaymentDateField" property="prepaymentDate">
+                    <validators>
+                        <futureOrPresent/>
+                    </validators>
+                </dateField>
                 <comboBox id="resultsOfPCRTestForCOVID19Field"
                           dataContainer="registrationCardsDc"
                           property="resultsOfPCRTestForCOVID19">

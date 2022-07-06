@@ -26,10 +26,10 @@ public class RegistrationCards {
     @Column(name = "CREATION_DATE")
     private LocalTime creationDate;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @InstanceName
     @JoinColumn(name = "APARTMENT_ID", nullable = false, unique = true)
-    @NotNull
     private Apartment apartment;
 
     @NotNull
