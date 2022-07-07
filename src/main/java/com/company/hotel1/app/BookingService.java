@@ -33,22 +33,31 @@ public class BookingService implements MyInterface{
         Apartment apartment;
         apartment = event.getEntity().getApartment();
         apartment.setSignOfBooking(true);
-        if (event.getEntity().getIndicationOfPrepayment() == null && event.getEntity().getPaymentIndication() == null) {
+        if (event.getEntity().getIndicationOfPrepayment() == null) {
             event.getEntity().setIndicationOfPrepayment(false);
+        }
+        if (event.getEntity().getPaymentIndication() == null)
+        {
             event.getEntity().setPaymentIndication(false);
         }
-        if (event.getEntity().getIndicationOfPrepayment()) {
-            LocalDate date = LocalDate.now();
-            event.getEntity().setPrepaymentDate(date);
-
+        if(event.getEntity().getPaymentIndication()&&event.getEntity().getPaymentDate()==null)
+        {
+            event.getEntity().setIndicationOfPrepayment(true);
+            apartment.setSignOfEmployment(true);
+            event.getEntity().setPaymentDate(LocalDate.now());
+            event.getEntity().setPrepaymentDate(LocalDate.now());
+            log.info(event.getEntity().getPaymentIndication().toString());
         }
-        if (event.getEntity().getPaymentIndication()) {
-            LocalDate date = LocalDate.now();
-            event.getEntity().setPaymentDate(date);
+        else if(event.getEntity().getPaymentIndication()&&event.getEntity().getPaymentDate()!=null)
+        {
+            event.getEntity().setIndicationOfPrepayment(true);
+            apartment.setSignOfEmployment(true);
+            event.getEntity().setPrepaymentDate(LocalDate.now());
         }
-
-
-        log.info(event.getEntity().getIndicationOfPrepayment().toString());
+        if(event.getEntity().getIndicationOfPrepayment()&&event.getEntity().getPrepaymentDate()==null)
+        {
+            event.getEntity().setPrepaymentDate(LocalDate.now());
+        }
         dataManager.save(apartment);
     }
 
@@ -57,15 +66,16 @@ public class BookingService implements MyInterface{
         Apartment apartment;
         if(event.getType()==EntityChangedEvent.Type.DELETED)
         {
-            Id<Apartment> registrationCardsId = event.getChanges().getOldReferenceId("apartment");
-            assert registrationCardsId != null;
-            log.info(registrationCardsId.toString());
-            apartment= dataManager.load(registrationCardsId).one();
+            Id<Apartment> apartmentId = event.getChanges().getOldReferenceId("apartment");
+            assert apartmentId != null;
+            log.info(apartmentId.toString());
+            apartment= dataManager.load(apartmentId).one();
             log.info(apartment.getNumber().toString());
             apartment.setSignOfBooking(false);
             apartment.setSignOfEmployment(false);
             dataManager.save(apartment);
         }
+
     }
     
 

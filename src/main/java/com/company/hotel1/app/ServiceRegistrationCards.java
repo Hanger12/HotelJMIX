@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class ServiceRegistrationCards {
@@ -61,6 +62,17 @@ public class ServiceRegistrationCards {
             log.info("ne robit");
         }
         return registrationCards;
+    }
+    public RegistrationCards fidByID(UUID id)
+    {
+        return dataManager
+                .loadValues("select r from RegistrationCards r where r.id='"+id.toString()+"'")
+                .properties("RegistrationCards")
+                .list()
+                .stream()
+                .map(e->e.<RegistrationCards>getValue("RegistrationCards"))
+                .findFirst()
+                .orElse(null);
     }
 
     private final MyInterface myInterface;

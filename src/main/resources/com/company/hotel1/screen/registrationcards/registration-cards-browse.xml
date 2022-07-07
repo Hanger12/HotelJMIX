@@ -48,6 +48,7 @@
             </actions>
             <columns>
                 <column id="apartment"/>
+                <column id="client"/>
                 <column id="arrivalDate"/>
                 <column id="departureDate"/>
                 <column id="paymentIndication"/>
@@ -55,7 +56,6 @@
                 <column id="paymentDate"/>
                 <column id="prepaymentDate"/>
                 <column id="resultsOfPCRTestForCOVID19"/>
-                <column id="client"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"

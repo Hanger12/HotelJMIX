@@ -37,10 +37,12 @@ public class RegistrationCards {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Client client;
 
-    @Column(name = "ARRIVAL_DATE")
+    @NotNull
+    @Column(name = "ARRIVAL_DATE", nullable = false)
     private LocalDateTime arrivalDate;
 
-    @Column(name = "DEPARTURE_DATE")
+    @NotNull
+    @Column(name = "DEPARTURE_DATE", nullable = false)
     private LocalDateTime departureDate;
 
     @Column(name = "PAYMENT_INDICATION")

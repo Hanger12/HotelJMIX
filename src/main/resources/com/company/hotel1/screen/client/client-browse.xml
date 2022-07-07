@@ -56,7 +56,6 @@
                 <column id="middlename"/>
                 <column id="contacts.phone"/>
                 <column id="contacts.mail"/>
-                <column id="listOfRegistrationCards"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"

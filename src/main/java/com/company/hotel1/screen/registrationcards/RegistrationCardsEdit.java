@@ -45,6 +45,10 @@ public class RegistrationCardsEdit extends StandardEditor<RegistrationCards> {
     private DateField<LocalDate> paymentDateField;
     @Autowired
     private DateField<LocalDate> prepaymentDateField;
+    @Autowired
+    private DateField<LocalDateTime> departureDateField;
+    @Autowired
+    private DateField<LocalDateTime> arrivalDateField;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -53,16 +57,57 @@ public class RegistrationCardsEdit extends StandardEditor<RegistrationCards> {
         list.add("Положительный");
         resultsOfPCRTestForCOVID19Field.setOptionsList(list);
         LocalDate date = LocalDate.now();
+        LocalDateTime dateTime = LocalDateTime.now();
         paymentDateField.setRangeStart(date);
         paymentDateField.setRangeEnd(date);
         prepaymentDateField.setRangeStart(date);
         prepaymentDateField.setRangeEnd(date);
+        arrivalDateField.setRangeStart(dateTime);
+        departureDateField.setRangeStart(dateTime);
     }
 
+    @Subscribe
+    public void onBeforeShow(BeforeShowEvent event) {
+        RegistrationCards registrationCards = getEditedEntity();
+        if(serviceRegistrationCards.fidByID(registrationCards.getId())!=null)
+        {
+            if(!serviceRegistrationCards.fidByID(registrationCards.getId()).getPaymentIndication())
+            {
+                Objects.requireNonNull(getWindow().getComponent("arrivalDateField")).setEnabled(false);
+                Objects.requireNonNull(getWindow().getComponent("departureDateField")).setEnabled(false);
+            }
+            else
+            {
+                Objects.requireNonNull(getWindow().getComponent("paymentDateField")).setEnabled(false);
+                Objects.requireNonNull(getWindow().getComponent("paymentIndicationField")).setEnabled(false);
+            }
+            if(serviceRegistrationCards.fidByID(registrationCards.getId()).getIndicationOfPrepayment())
+            {
+                Objects.requireNonNull(getWindow().getComponent("indicationOfPrepaymentField")).setEnabled(false);
+                Objects.requireNonNull(getWindow().getComponent("prepaymentDateField")).setEnabled(false);
+            }
+            if(registrationCards.getApartment()!=null)
+            {
+                Objects.requireNonNull(getWindow().getComponent("apartmentField")).setEnabled(false);
+            }
+            if(registrationCards.getClient()!=null)
+            {
+                Objects.requireNonNull(getWindow().getComponent("clientField")).setEnabled(false);
+            }
+            if(serviceRegistrationCards.fidByID(registrationCards.getId()).getResultsOfPCRTestForCOVID19()!=null)
+            {
+                Objects.requireNonNull(getWindow().getComponent("resultsOfPCRTestForCOVID19Field")).setEnabled(false);
+            }
+        }
+        Objects.requireNonNull(getWindow().getComponent("creationDateField")).setEnabled(false);
+
+    }
+    
     @Subscribe
     public void onInitEntity(InitEntityEvent<RegistrationCards> event) {
         LocalTime time = LocalTime.now();
         event.getEntity().setCreationDate(time);
+
     }
 
     @Subscribe("apartmentField")
@@ -78,14 +123,6 @@ public class RegistrationCardsEdit extends StandardEditor<RegistrationCards> {
         {
             log.info("");
         }
-
-    /*@Install(to = "apartmentField", subject = "validator")
-    private void apartmentFieldValidator(Apartment value) {
-        if ((value.getSignOfBooking() || value.getSignOfEmployment())) {
-            throw new ValidationException("Данные апартаменты уже забронированы или заняты");
-        }
-     */
-
 
     }
 

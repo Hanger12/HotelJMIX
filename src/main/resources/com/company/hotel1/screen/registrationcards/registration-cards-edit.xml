@@ -39,26 +39,14 @@
                     </validators>-->
                 </entityPicker>
                 <dateField id="arrivalDateField" property="arrivalDate">
-                    <validators>
-                        <futureOrPresent/>
-                    </validators>
                 </dateField>
                 <dateField id="departureDateField" property="departureDate">
-                    <validators>
-                        <futureOrPresent/>
-                    </validators>
                 </dateField>
                 <checkBox id="paymentIndicationField" property="paymentIndication"/>
                 <checkBox id="indicationOfPrepaymentField" property="indicationOfPrepayment"/>
                 <dateField id="paymentDateField" property="paymentDate">
-                    <validators>
-                        <futureOrPresent/>
-                    </validators>
                 </dateField>
                 <dateField id="prepaymentDateField" property="prepaymentDate">
-                    <validators>
-                        <futureOrPresent/>
-                    </validators>
                 </dateField>
                 <comboBox id="resultsOfPCRTestForCOVID19Field"
                           dataContainer="registrationCardsDc"
