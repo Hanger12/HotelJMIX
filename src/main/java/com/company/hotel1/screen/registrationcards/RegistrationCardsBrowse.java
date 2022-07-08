@@ -24,8 +24,20 @@ public class RegistrationCardsBrowse extends StandardLookup<RegistrationCards> {
     private ServiceRegistrationCards deletePCRTestTrue;
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
+        // поиск положительного теста на коронавирус
         for (RegistrationCards r:deletePCRTestTrue.loadByCondition())
         {
+            //отмена бронирования номера и сброс индикаторов оплаты или предоплаты без удаления
+            /*if(r.getPaymentIndication()||r.getIndicationOfPrepayment())
+            {
+                r.setPrepaymentDate(null);
+                r.setPaymentDate(null);
+                r.setPaymentIndication(false);
+                r.setIndicationOfPrepayment(false);
+                dataManager.save(r);
+            }
+             */
+            //отмена бронирования номера и удаление карточки регистрации если ПЦР Тест положительный
             r.getApartment().setSignOfBooking(false);
             r.getApartment().setSignOfEmployment(false);
             dataManager.save(r.getApartment());

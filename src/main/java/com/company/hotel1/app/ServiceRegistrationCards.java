@@ -40,17 +40,19 @@ public class ServiceRegistrationCards {
     }
     @Autowired
     private SystemAuthenticator systemAuthenticator;
-
+    //за прос на наличие положительного теста на коронавирус
     public List<RegistrationCards> loadByCondition() {
         return dataManager.load(RegistrationCards.class)
                 .condition(PropertyCondition.contains("resultsOfPCRTestForCOVID19", "Положительный"))
                 .list();
     }
+    // запрос на поиск не предоплативших клиентов в регистрационной карте
     public List<RegistrationCards> deleteOfPrepaymentFalse()
     {
         return dataManager.load(RegistrationCards.class).query("select r from RegistrationCards r where r.indicationOfPrepayment=false")
                 .list();
     }
+    //запрос в базу по номеру апартамента
     public RegistrationCards findRegistratioCards(Integer number)
     {
         RegistrationCards registrationCards = new RegistrationCards();
@@ -59,10 +61,11 @@ public class ServiceRegistrationCards {
         }
         catch (IllegalStateException exception)
         {
-            log.info("ne robit");
+            log.info("");
         }
         return registrationCards;
     }
+    //запрос в базу по id
     public RegistrationCards fidByID(UUID id)
     {
         return dataManager
@@ -80,23 +83,28 @@ public class ServiceRegistrationCards {
     @ManagedOperation
     @Scheduled(fixedRate = 15000)
     public void findRegistrationCardsTest() {
+        //предоставление доступа системному пользовтелю
         systemAuthenticator.withSystem(() -> {
             UserDetails user = currentAuthentication.getUser();
             log.info("User: " + user.getUsername()); // system
             // ...
             return "Done";
         });
-        log.info("Find new article job started.");
+        log.info("Job is working.");
+        //проверка на точность jpql запроса и если аутификация системного пользователя прошла успешно
         if(deleteOfPrepaymentFalse()!=null&&currentAuthentication.isSet())
         {
+            //проходимся по листу
             for (RegistrationCards r: deleteOfPrepaymentFalse())
             {
+                // сравниваем объекты на разницу времени создания и текущем временем в данном случае 2 минуты (можно также работать с датой)
                 if(r.getCreationDate().getHour()==LocalTime.now().getHour()
                         &&LocalTime.now().getMinute()-r.getCreationDate().getMinute()>=2)
                 {
                     r.getApartment().setSignOfBooking(false);
                     r.getApartment().setSignOfEmployment(false);
                     dataManager.save(r.getApartment());
+                    //удаляем карточку регистрации если предоплата не произведена в течении 2 минут(можно также работать с датой)
                     dataManager.remove(r);
                 }
 

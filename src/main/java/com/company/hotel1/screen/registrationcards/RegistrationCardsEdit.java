@@ -50,6 +50,9 @@ public class RegistrationCardsEdit extends StandardEditor<RegistrationCards> {
     @Autowired
     private DateField<LocalDateTime> arrivalDateField;
 
+    // при инициализации заполнить OptionField не обходимыми данными и установить
+    // что пользователь не может оплатить или предоплатить в будущем времени или
+    // в прошедшем времени, также, установить,что пользователь не может выбрать дату заселения и выезда в прошедшем времени
     @Subscribe
     public void onInit(InitEvent event) {
         List<String> list = new ArrayList<>();
@@ -69,6 +72,7 @@ public class RegistrationCardsEdit extends StandardEditor<RegistrationCards> {
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         RegistrationCards registrationCards = getEditedEntity();
+        // блокируем все поля с учетом условий.
         if(serviceRegistrationCards.fidByID(registrationCards.getId())!=null)
         {
             if(!serviceRegistrationCards.fidByID(registrationCards.getId()).getPaymentIndication())
@@ -102,18 +106,20 @@ public class RegistrationCardsEdit extends StandardEditor<RegistrationCards> {
         Objects.requireNonNull(getWindow().getComponent("creationDateField")).setEnabled(false);
 
     }
-    
+    // при создании новой сущности установить дату создания
     @Subscribe
     public void onInitEntity(InitEntityEvent<RegistrationCards> event) {
         LocalTime time = LocalTime.now();
         event.getEntity().setCreationDate(time);
 
     }
-
+    //проверка если номер уже забронирован то клиент не может его забронировать повторно
     @Subscribe("apartmentField")
     public void onApartmentFieldValueChange(HasValue.ValueChangeEvent<Apartment> event) {
         try {
-            if(serviceRegistrationCards.findRegistratioCards(Objects.requireNonNull(event.getValue()).getNumber()).getApartment().getNumber()!=null&&event.isUserOriginated()){
+            if(serviceRegistrationCards.findRegistratioCards(Objects.requireNonNull(event.getValue()).getNumber()).getApartment().getNumber()!=null
+                    &&event.isUserOriginated()
+                    &&serviceRegistrationCards.findRegistratioCards(Objects.requireNonNull(event.getValue()).getNumber()).getApartment().getSignOfBooking()){
                 event.getComponent().clear();
                 dialogs.createMessageDialog().withCaption("").withMessage("Данный номер уже забронированирован").show();
 

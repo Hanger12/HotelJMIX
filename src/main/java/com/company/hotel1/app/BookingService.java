@@ -28,6 +28,7 @@ public class BookingService implements MyInterface{
     @Autowired
     private DataManager dataManager;
 
+    //при сохранении Карточки регистрации атоматически бронировать номер и заполнять пустые поля связанные с оплатой и предоплатой
     @EventListener
     public void onRegistrationCardsSaving(EntitySavingEvent<RegistrationCards> event) {
         Apartment apartment;
@@ -61,6 +62,20 @@ public class BookingService implements MyInterface{
         dataManager.save(apartment);
     }
 
+    //При сохранении апартамента проверять не пустые ли ячейки бронирования и занятости
+    @EventListener
+    public void onApartmentSaving(EntitySavingEvent<Apartment> event) {
+        if(event.getEntity().getSignOfBooking()==null)
+        {
+            event.getEntity().setSignOfBooking(false);
+        }
+        if(event.getEntity().getSignOfEmployment()==null)
+        {
+            event.getEntity().setSignOfEmployment(false);
+        }
+    }
+
+    //при ручном удалении Карточки регистрации сбрасывать бронирование номера
     @EventListener
     public void onRegistrationCardsChangedBeforeCommit(EntityChangedEvent<RegistrationCards> event) {
         Apartment apartment;

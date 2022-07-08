@@ -29,7 +29,7 @@ public class RegistrationCards {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @InstanceName
-    @JoinColumn(name = "APARTMENT_ID", nullable = false, unique = true)
+    @JoinColumn(name = "APARTMENT_ID", nullable = false)
     private Apartment apartment;
 
     @NotNull

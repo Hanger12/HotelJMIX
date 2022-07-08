@@ -7,4 +7,5 @@ import com.company.hotel1.entity.Apartment;
 @UiDescriptor("apartment-edit.xml")
 @EditedEntityContainer("apartmentDc")
 public class ApartmentEdit extends StandardEditor<Apartment> {
+
 }
