@@ -40,7 +40,7 @@ public class ServiceRegistrationCards {
     }
     @Autowired
     private SystemAuthenticator systemAuthenticator;
-    //за прос на наличие положительного теста на коронавирус
+    //запрос на наличие положительного теста на коронавирус
     public List<RegistrationCards> loadByCondition() {
         return dataManager.load(RegistrationCards.class)
                 .condition(PropertyCondition.contains("resultsOfPCRTestForCOVID19", "Положительный"))
