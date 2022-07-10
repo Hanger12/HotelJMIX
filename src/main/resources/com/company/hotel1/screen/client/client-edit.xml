@@ -5,11 +5,9 @@
     <data>
         <instance id="clientDc"
                   class="com.company.hotel1.entity.Client">
-            <fetchPlan extends="_instance_name">
-                <property name="surname"/>
-                <property name="middlename"/>
-                <property name="contacts" fetchPlan="_base"/>
+            <fetchPlan extends="_base">
                 <property name="listOfRegistrationCards" fetchPlan="_base"/>
+                <property name="contacts" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
             <collection id="listOfRegistrationCardsDc" property="listOfRegistrationCards"/>
@@ -41,7 +39,7 @@
             </column>
         </form>
         <groupBox id="listOfRegistrationCardsBox"
-                  caption="msg://Client.listOfRegistrationCards">
+                  caption="msg://com.company.hotel1.entity/Client.listOfRegistrationCards">
             <table id="listOfRegistrationCardsTable" dataContainer="listOfRegistrationCardsDc" width="100%"
                    height="200px">
                 <actions>
@@ -50,6 +48,8 @@
                     <action id="remove" type="remove"/>
                 </actions>
                 <columns>
+                    <column id="apartment"/>
+                    <column id="creationDate"/>
                     <column id="arrivalDate"/>
                     <column id="departureDate"/>
                     <column id="paymentIndication"/>

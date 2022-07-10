@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Hotel1">
+        <insert tableName="CLIENT" dbms="postgresql, mssql, hsqldb">
+            <column name="ID" value="4febf5b2-9704-4847-aefd-88be173fc5d4"/>
+            <column name="name" value="Александр"/>
+            <column name="surname" value="Меньшиков"/>
+            <column name="middlename" value="Петрович"/>
+            <column name="contacts_mail" value="Menchikov@mail.ru"/>
+            <column name="contacts_phone" value="89273804565"/>
+        </insert>
+        <insert tableName="CLIENT" dbms="postgresql, mssql, hsqldb">
+            <column name="ID" value="69a62a99-b030-4025-b4d3-574787f271ac"/>
+            <column name="name" value="Алексей"/>
+            <column name="surname" value="Иванов"/>
+            <column name="middlename" value="Иванович"/>
+            <column name="contacts_mail" value="Ivanov@mail.ru"/>
+            <column name="contacts_phone" value="89271864269"/>
+        </insert>
+        <insert tableName="CLIENT" dbms="postgresql, mssql, hsqldb">
+            <column name="ID" value="52c462eb-42df-441b-8e53-a8705245f6cb"/>
+            <column name="name" value="Артем"/>
+            <column name="surname" value="Горин"/>
+            <column name="middlename" value="Алексеевич"/>
+            <column name="contacts_mail" value="Gorin@mail.ru"/>
+            <column name="contacts_phone" value="89275111676"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

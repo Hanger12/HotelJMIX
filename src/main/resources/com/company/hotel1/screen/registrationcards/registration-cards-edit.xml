@@ -52,13 +52,8 @@
                           dataContainer="registrationCardsDc"
                           property="resultsOfPCRTestForCOVID19">
                 </comboBox>
-                <entityPicker id="clientField" property="client">
-                    <actions>
-                        <action id="entityLookup" type="entity_lookup"/>
-                        <action id="entityClear" type="entity_clear"/>
-                    </actions>
-                </entityPicker>
                 <timeField id="creationDateField" property="creationDate"/>
+                <entityPicker id="clientField" property="client"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

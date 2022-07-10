@@ -20,7 +20,6 @@ public class Client {
     @Id
     private UUID id;
 
-    @OrderBy("client")
     @Composition
     @OneToMany(mappedBy = "client")
     private List<RegistrationCards> listOfRegistrationCards;
@@ -47,6 +46,10 @@ public class Client {
 
     public List<RegistrationCards> getListOfRegistrationCards() {
         return listOfRegistrationCards;
+    }
+
+    public void setListOfRegistrationCards(List<RegistrationCards> listOfRegistrationCards) {
+        this.listOfRegistrationCards = listOfRegistrationCards;
     }
 
     public Contacts getContacts() {

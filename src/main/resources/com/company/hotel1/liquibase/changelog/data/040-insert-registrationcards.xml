@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="Hotel1">
+        <insert tableName="REGISTRATION_CARDS" dbms="postgresql, mssql, hsqldb">
+            <column name="id" value="f7e0dde8-8f08-4b6d-9af0-4f6981ab1fce"/>
+            <column name="apartment_id" value="c6ac3c6d-d5f1-4d50-8bf4-384487297175"/>
+            <column name="arrival_date" value="2022-11-30T09:30:10"/>
+            <column name="departure_date" value="2022-11-30T11:30:10"/>
+            <column name="creation_date" value="14:47"/>
+            <column name="client_id" value="4febf5b2-9704-4847-aefd-88be173fc5d4"/>
+            <column name="payment_indication" valueBoolean="true"/>
+            <column name="indication_of_prepayment" valueBoolean="true"/>
+            <column name="payment_date" value="2022-07-10"/>
+            <column name="prepayment_date" value="2022-07-10"/>
+            <column name="results_of_pcr_test_for_covid1" value="Отрицательный"/>
+        </insert>
+        <insert tableName="REGISTRATION_CARDS" dbms="postgresql, mssql, hsqldb">
+            <column name="id" value="a4ae909e-9bb2-46f7-8660-353807cd3048"/>
+            <column name="apartment_id" value="8d221ed9-8622-4875-b619-1a68a3376fcc"/>
+            <column name="arrival_date" value="2022-07-12T09:30:10"/>
+            <column name="departure_date" value="2022-08-12T11:30:10"/>
+            <column name="creation_date" value="14:59"/>
+            <column name="client_id" value="52c462eb-42df-441b-8e53-a8705245f6cb"/>
+            <column name="payment_indication" valueBoolean="false"/>
+            <column name="indication_of_prepayment" valueBoolean="true"/>
+            <column name="payment_date"/>
+            <column name="prepayment_date" value="2022-07-10"/>
+            <column name="results_of_pcr_test_for_covid1" value="Отрицательный"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

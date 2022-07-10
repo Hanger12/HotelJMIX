@@ -33,11 +33,6 @@ public class RegistrationCards {
     private Apartment apartment;
 
     @NotNull
-    @JoinColumn(name = "CLIENT_ID", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Client client;
-
-    @NotNull
     @Column(name = "ARRIVAL_DATE", nullable = false)
     private LocalDateTime arrivalDate;
 
@@ -60,6 +55,18 @@ public class RegistrationCards {
     @Column(name = "RESULTS_OF_PCR_TEST_FOR_COVID1", nullable = false)
     private @NotNull String resultsOfPCRTestForCOVID19;
 
+    @JoinColumn(name = "CLIENT_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public LocalTime getCreationDate() {
         return creationDate;
     }
@@ -74,14 +81,6 @@ public class RegistrationCards {
 
     public String getResultsOfPCRTestForCOVID19() {
         return resultsOfPCRTestForCOVID19;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Client getClient() {
-        return client;
     }
 
     public LocalDate getPrepaymentDate() {
@@ -147,11 +146,4 @@ public class RegistrationCards {
     public void setId(UUID id) {
         this.id = id;
     }
-
-    @DependsOnProperties({"apartment", "client", "paymentDate"})
-    public String getCount() {
-        return String.format("%s %s %s", apartment, client, paymentDate);
-    }
-
-
 }

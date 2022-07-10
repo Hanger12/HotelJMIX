@@ -21,7 +21,7 @@ public class Apartment {
     private UUID id;
 
     @InstanceName
-    @Column(name = "NUMBER_", nullable = false)
+    @Column(name = "NUMBER_", nullable = false, unique = true)
     @NotNull
     private Integer number;
 

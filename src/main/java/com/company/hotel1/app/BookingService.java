@@ -2,25 +2,17 @@ package com.company.hotel1.app;
 
 import com.company.hotel1.entity.Apartment;
 import com.company.hotel1.entity.RegistrationCards;
-import com.company.hotel1.screen.client.ClientBrowse;
 import io.jmix.core.DataManager;
 import io.jmix.core.Id;
 import io.jmix.core.event.EntityChangedEvent;
 import io.jmix.core.event.EntitySavingEvent;
-import io.jmix.core.querycondition.PropertyCondition;
-import org.postgresql.util.PSQLException;
-import org.postgresql.util.PSQLState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionalEventListener;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.*;
 
 @Service
 public class BookingService implements MyInterface{

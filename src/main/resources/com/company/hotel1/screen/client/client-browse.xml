@@ -8,7 +8,6 @@
                     class="com.company.hotel1.entity.Client">
             <fetchPlan extends="_base">
                 <property name="contacts" fetchPlan="_base"/>
-                <property name="listOfRegistrationCards" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="clientsDl">
                 <query>

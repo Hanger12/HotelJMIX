@@ -1,26 +1,17 @@
 package com.company.hotel1.screen.registrationcards;
 
-import com.company.hotel1.app.BookingService;
 import com.company.hotel1.app.ServiceRegistrationCards;
 import com.company.hotel1.entity.Apartment;
-import com.company.hotel1.screen.client.ClientBrowse;
 import io.jmix.core.DataManager;
 import io.jmix.core.TimeSource;
 import io.jmix.ui.Dialogs;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.action.Action;
-import io.jmix.ui.action.BaseAction;
 import io.jmix.ui.component.*;
-import io.jmix.ui.icon.JmixIcon;
-import io.jmix.ui.model.DataContext;
 import io.jmix.ui.screen.*;
 import com.company.hotel1.entity.RegistrationCards;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Convert;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
